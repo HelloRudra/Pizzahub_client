@@ -63,6 +63,14 @@ export default function SignInPage() {
                 Create an account
               </Link>
             </p>
+            <Button
+  type="button"
+  variant="outline"
+  className="w-full"
+  onClick={() => signIn.social({ provider: 'google', callbackURL: '/dashboard' })}
+>
+  Continue with Google
+</Button>
           </form>
         </CardContent>
       </Card>
