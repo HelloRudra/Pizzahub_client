@@ -94,16 +94,19 @@ export default function SignInPage() {
               {loading ? 'Signing in...' : `Sign In as ${role === 'vendor' ? 'Vendor' : 'Customer'}`}
             </Button>
 
-            {role === 'customer' && (
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full"
-                onClick={() => signIn.social({ provider: 'google', callbackURL: '/dashboard' })}
-              >
-                Continue with Google
-              </Button>
-            )}
+            <Button
+  type="button"
+  variant="outline"
+  className="w-full"
+  onClick={() => signIn.social({ provider: 'google', callbackURL: '/dashboard' })}
+>
+  Continue with Google
+</Button>
+{role === 'vendor' && (
+  <p className="text-center text-xs text-muted-foreground">
+    Google works for existing accounts. New vendors should register with email on the Sign Up page.
+  </p>
+)}
 
             <p className="text-center text-sm">
               New here?{' '}
