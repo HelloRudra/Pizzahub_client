@@ -44,8 +44,7 @@ export default function SignInPage() {
       }
 
       toast.success('Welcome back!');
-      router.push('/dashboard');
-      router.refresh();
+      window.location.href = '/dashboard';
     } catch {
       toast.error('Something went wrong');
     } finally {
