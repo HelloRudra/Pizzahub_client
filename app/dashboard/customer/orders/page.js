@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { toast } from 'sonner';
 import { apiFetch } from '@/lib/api';
 import StatusBadge from '@/components/StatusBadge';
+import OrderTimeline from '@/components/OrderTimeline';
 import { Button } from '@/components/ui/button';
 
 export default function MyOrdersPage() {
@@ -28,11 +29,10 @@ export default function MyOrdersPage() {
     try {
       const d = await apiFetch(`/api/orders/${id}/cancel`, { method: 'PATCH' });
       toast.success(d.message);
-      load();
     } catch (e) {
       toast.error(e.message);
-      load();
     }
+    load();
   }
 
   function confirmCancel(order) {
@@ -49,7 +49,9 @@ export default function MyOrdersPage() {
       {orders.length === 0 ? (
         <div className="rounded-lg border bg-white p-10 text-center">
           <p className="text-muted-foreground">You have not placed any orders yet.</p>
-          <Button asChild className="mt-4 bg-red-600 hover:bg-red-700"><Link href="/menu">Browse menu</Link></Button>
+          <Button asChild className="mt-4 bg-red-600 hover:bg-red-700">
+            <Link href="/menu">Browse menu</Link>
+          </Button>
         </div>
       ) : (
         <div className="space-y-4">
@@ -62,11 +64,21 @@ export default function MyOrdersPage() {
                   <h2 className="text-lg font-semibold">{o.item?.itemName || 'Item removed'}</h2>
                   <StatusBadge status={o.status} />
                 </div>
-                <p><span className="text-muted-foreground">Restaurant:</span> {o.vendor?.businessName || o.vendor?.name}</p>
+                <div className="py-1">
+                  <OrderTimeline status={o.status} />
+                </div>
+                <p>
+                  <span className="text-muted-foreground">Restaurant:</span>{' '}
+                  {o.vendor?.businessName || o.vendor?.name}
+                </p>
                 <p><span className="text-muted-foreground">Delivery date:</span> {o.deliveryDate}</p>
                 <p><span className="text-muted-foreground">Address:</span> {o.deliveryAddress}</p>
-                {o.message && <p><span className="text-muted-foreground">Message:</span> {o.message}</p>}
-                <p className="text-xs text-muted-foreground">Requested on {new Date(o.createdAt).toLocaleString()}</p>
+                {o.message && (
+                  <p><span className="text-muted-foreground">Message:</span> {o.message}</p>
+                )}
+                <p className="text-xs text-muted-foreground">
+                  Requested on {new Date(o.createdAt).toLocaleString()}
+                </p>
                 {o.status === 'pending' && (
                   <Button size="sm" variant="destructive" className="mt-2" onClick={() => confirmCancel(o)}>
                     Cancel order
