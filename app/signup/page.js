@@ -60,8 +60,7 @@ export default function SignUpPage() {
         return;
       }
       toast.success('Account created!');
-      router.push('/dashboard');
-      router.refresh();
+      window.location.href = '/dashboard';
     } catch (err) {
       toast.error(err.message || 'Something went wrong');
     } finally {
