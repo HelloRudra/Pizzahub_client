@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard, UtensilsCrossed, PlusCircle, ClipboardList, Crown, UserCog,
-  Users, CreditCard, ShoppingBag, LogOut, Home, Loader2,
+  Users, CreditCard, ShoppingBag, LogOut, Home, Loader2, Heart,
 } from 'lucide-react';
 import { useSession, signOut } from '@/lib/auth-client';
 import { Button } from '@/components/ui/button';
@@ -24,6 +24,7 @@ const NAV = {
   customer: [
     { href: '/dashboard/customer', label: 'Overview', icon: LayoutDashboard },
     { href: '/dashboard/customer/orders', label: 'My Orders', icon: ShoppingBag },
+    { href: '/dashboard/customer/favorites', label: 'Favorites', icon: Heart },
     { href: '/dashboard/profile', label: 'Profile Settings', icon: UserCog },
   ],
   admin: [

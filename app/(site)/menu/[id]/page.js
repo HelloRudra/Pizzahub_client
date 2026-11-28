@@ -6,6 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { MapPin, Store, Crown, Loader2 } from 'lucide-react';
 import { useSession } from '@/lib/auth-client';
 import OrderForm from '@/components/OrderForm';
+import FavoriteButton from '@/components/FavoriteButton';
 import { Button } from '@/components/ui/button';
 
 const API = process.env.NEXT_PUBLIC_API_URL;
@@ -79,6 +80,8 @@ export default function ItemDetailsPage() {
         <p className="text-3xl font-bold text-red-600">${Number(item.price).toFixed(2)}</p>
         <p className="flex items-center gap-1 text-muted-foreground"><MapPin className="h-4 w-4" /> {item.location}</p>
         <p className="leading-relaxed text-gray-700">{item.description}</p>
+
+        {role === 'customer' && <FavoriteButton itemId={item._id} />}
 
         <div className="flex items-center gap-3 rounded-xl border bg-white p-4">
           <Store className="h-5 w-5 text-red-600" />
